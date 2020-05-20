@@ -4,7 +4,7 @@ import sys
 TOKEN = '#####################################################'
 update_date = "2020/05/20"
 author = "Wamo"
-version = "1.2"
+version = "1.4"
 client = discord.Client()
 
 @client.event
@@ -55,7 +55,7 @@ async def on_member_unban(guild, user):
 async def on_guild_role_update(before, after):
     CHANNEL_ID = ##################
     channel = client.get_channel(CHANNEL_ID)
-    embed = discord.Embed(title="以下のロールが更新されました",description='更新前：\n' + str(before) + '\n\n更新後：\n' + str(after),color=0x0076ff)
+    embed = discord.Embed(title="以下のロールが更新されました",description='ロール：\n' + str(after),color=0x0076ff)
     embed.set_thumbnail(url="https://dl.accessto.net/image/40px-info.png")
     await channel.send(embed = embed)
 
@@ -81,6 +81,14 @@ async def on_message(message):
         return
     
     if message.content == ':help':
+        embed = discord.Embed(title="使い方",color=0x0076ff)
+        embed.add_field(name=":help",value="このページ",inline=False)
+        embed.add_field(name=":exit",value="終了",inline=False)
+        embed.add_field(name="その他",value="サーバーの更新があった場合自動で通知します。",inline=False)
+        embed.set_thumbnail(url="https://cloud.vcuc.gq/image/40px-info.png")
+        await message.channel.send(embed = embed)
+
+    if message.content == ':about':
         embed = discord.Embed(title="このBotについて",description='このBotは、サーバーに更新があったときに自動で通知するBotです。\n\n製作者：' + author + '\nバージョン：v' + version + '\n最終更新日：' + str(update_date),color=0x0076ff)
         embed.set_thumbnail(url="https://dl.accessto.net/image/40px-info.png")
         await message.channel.send(embed = embed)
