@@ -4,12 +4,13 @@ import sys
 TOKEN = '#####################################################'
 update_date = "2020/05/20"
 author = "Wamo"
-version = "1.4"
+version = "1.5"
 client = discord.Client()
 
 @client.event
 async def on_ready():
     print("ログインしました")
+    await client.change_presence(activity=discord.Game(name='通常稼働中'))
 
 @client.event
 async def on_guild_update(before, after):
@@ -83,9 +84,10 @@ async def on_message(message):
     if message.content == ':help':
         embed = discord.Embed(title="使い方",color=0x0076ff)
         embed.add_field(name=":help",value="このページ",inline=False)
+        embed.add_field(name=":about",value="このプログラムについて",inline=False)
         embed.add_field(name=":exit",value="終了",inline=False)
         embed.add_field(name="その他",value="サーバーの更新があった場合自動で通知します。",inline=False)
-        embed.set_thumbnail(url="https://cloud.vcuc.gq/image/40px-info.png")
+        embed.set_thumbnail(url="https://dl.accessto.net/image/40px-info.png")
         await message.channel.send(embed = embed)
 
     if message.content == ':about':
